@@ -10,25 +10,11 @@ import datetime
 import threading
 
 
-
-##def runInterval():
-##         t=threading.Timer(seconds,runInterval())
-##         t.start()
-##         print('nihao')
-##         if compareTime():
-##                 t.cancel()
-
 def compareTime(a,b):        
          time_a = datetime.datetime.strptime(a,'%H:%M:%S')
          time_b = datetime.datetime.strptime(b,'%H:%M:%S')
-         return time_a < time_b
+         return time_a <= time_b
      
-
-
- a=get_now()['time']
- b='15:05:01'
-
-
 def get_now():
          now = datetime.datetime.now()
          date = now.strftime('%Y-%m-%d')
@@ -45,3 +31,8 @@ def get_now():
          dic['year']=year
 
          return dic
+
+
+#a=datetime.datetime.strptime('8:15:56','%H:%M:%S')
+#b=datetime.datetime.strptime('8:16:56','%H:%M:%S')
+#print((b-a).seconds)

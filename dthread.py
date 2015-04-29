@@ -1,45 +1,31 @@
-import  queue 
 import time 
 import threading 
-import  random
-
-q=queue.Queue(5) 
-
-#生产者 
-def pr(): 
+import dstock
+import dtime
+#
+#
+def timeThread(): 
     name=threading.current_thread().getName() 
-    print(name+"线程启动......") 
-    for i in range(100): 
-        t=random.randint(2,9) 
-        print(name,"睡眠时间: ",t) 
-        time.sleep(t); 
-        d="A"+str(i) 
-        print(name+"--正在存第",i+1,"个数据: ",d) 
-        #q.put("A"+str(i),False,2000) 
-        q.put(d) 
-    print("生产完毕!") 
+    print(name+":线程启动......")
+    a=dtime.get_now()['time']
+    b='17:05:59'
+    c = dtime.compareTime(a,b)
+    while c:
+        t = dtime.get_now()
+        p = threading.Thread(target = co,name=t['time'])
+        p.start()
+        c = dtime.compareTime(a,b)
+        time.sleep(300)
+    input("press return to exit  ^_^")
 
-
-#消费者 
+#
 def co(): 
-    name=threading.current_thread().getName() 
-    time.sleep(1) 
-    print(name+"线程启动......") 
+    name=threading.current_thread().getName()
+    print('{'+name+"}线程启动......")
+   #dstock.get_stock('sz000829') -> dict
+    print(dstock.get_stock('sz000829'))
+    print('[ '+name+' ] 数据获取完成 !')
 
-    while True: 
-        print(name+"--检测到队列数量: ",q.qsize()) 
-        t=random.randint(2,9) 
-        print(name,"睡眠时间: ",t) 
-        data=q.get(); 
-        print(name+"--消费一个数据: ",data) 
+    
 
 
-
-
-p=threading.Thread(target=pr,name="生产者") 
-c=threading.Thread(target=co,name="消费者1") 
-c2=threading.Thread(target=co,name="消费者2") 
-
-p.start() 
-c.start() 
-c2.start() 
